@@ -1,26 +1,26 @@
-# Why TypeScript
-There are two main goals of TypeScript:
-* Provide an *optional type system* for JavaScript.
-* Provide planned features from future JavaScript editions to current JavaScript engines
+# Pourquoi TypeScript
+Il y a deux objectifs principaux pour TypeScript :
+* Fournir un *système de type facultatif* pour JavaScript.
+* Fournir les fonctionnalités planifiées des futures éditions de JavaScript aux moteurs JavaScript actuels
 
-The desire for these goals is motivated below.
+Le désir de ces objectifs est motivé ci-dessous.
 
-## The TypeScript type system
+## Le système de type TypeScript
 
-You might be wondering "**Why add types to JavaScript?**"
+Vous vous demandez peut-être "**Pourquoi ajouter des types à JavaScript ?**"
 
-Types have proven ability to enhance code quality and understandability. Large teams (Google, Microsoft, Facebook) have continually arrived at this conclusion. Specifically:
+Les types ont prouvé leur capacité à améliorer la qualité et la compréhensibilité du code. De grandes équipes (Google, Microsoft, Facebook) sont continuellement parvenues à cette conclusion. Plus précisément :
 
-* Types increase your agility when doing refactoring. *It's better for the compiler to catch errors than to have things fail at runtime*.
-* Types are one of the best forms of documentation you can have. *The function signature is a theorem and the function body is the proof*.
+* Les types augmentent votre agilité lors de la refactorisation. *Il est préférable pour le compilateur de détecter les erreurs que de faire échouer les choses au moment de l'exécution*.
+* Les types sont l'une des meilleures formes de documentation que vous puissiez avoir. *La signature de la fonction est un théorème et le corps de la fonction en est la preuve*.
 
-However, types have a way of being unnecessarily ceremonious. TypeScript is very particular about keeping the barrier to entry as low as possible. Here's how:
+Cependant, les types ont une façon d'être inutilement cérémonieux. TypeScript est très particulier pour maintenir la barrière à l'entrée aussi basse que possible. Voici comment :
 
-### Your JavaScript is TypeScript
-TypeScript provides compile time type safety for your JavaScript code. This is no surprise given its name. The great thing is that the types are completely optional. Your JavaScript code `.js` file can be renamed to a `.ts` file and TypeScript will still give you back valid `.js` equivalent to the original JavaScript file. TypeScript is *intentionally* and strictly a superset of JavaScript with optional Type checking.
+### Votre JavaScript est TypeScript
+TypeScript fournit une sécurité de type pendant la compilation pour votre code JavaScript. Ce n'est pas une surprise étant donné son nom. Le truc sympa est que les types sont complètement facultatifs. Votre fichier de code JavaScript `.js` peut être renommé en fichier `.ts` et TypeScript vous rendra toujours l'équivalent `.js` valide du fichier JavaScript d'origine. TypeScript est *intentionnellement* et strictement un sur-ensemble de JavaScript avec vérification de type facultative.
 
-### Types can be Implicit
-TypeScript will try to infer as much of the type information as it can in order to give you type safety with minimal cost of productivity during code development. For example, in the following example TypeScript will know that foo is of type `number` below and will give an error on the second line as shown:
+### Les types peuvent être implicites
+TypeScript essaiera de déduire autant d'informations de type que possible afin de vous offrir une sécurité de type avec un coût de productivité minimal lors du développement du code. Par exemple, dans l'exemple suivant, TypeScript saura que `foo` est du type `number` ci-dessous et donnera une erreur sur la deuxième ligne comme indiqué :
 
 ```ts
 var foo = 123;
@@ -28,28 +28,28 @@ foo = '456'; // Error: cannot assign `string` to `number`
 
 // Is foo a number or a string?
 ```
-This type inference is well motivated. If you do stuff like shown in this example, then, in the rest of your code, you cannot be certain that `foo` is a `number` or a `string`. Such issues turn up often in large multi-file code bases. We will deep dive into the type inference rules later.
+Cette inférence de type est bien motivée. Si vous faites des choses comme indiqué dans cet exemple, alors, dans le reste de votre code, vous ne pouvez pas être certain que `foo` est un `number` ou un `string`. Ces problèmes surviennent souvent dans les grandes bases de code multi-fichiers. Nous approfondirons les règles d'inférence de type plus tard.
 
-### Types can be Explicit
-As we've mentioned before, TypeScript will infer as much as it can safely. However, you can use annotations to:
-1. Help along the compiler, and more importantly document stuff for the next developer who has to read your code (that might be future you!).
-1. Enforce that what the compiler sees, is what you thought it should see. That is your understanding of the code matches an algorithmic analysis of the code (done by the compiler).
+### Les types peuvent être explicites
+Comme nous l'avons mentionné précédemment, TypeScript inférera autant que possible en toute sécurité. Cependant, vous pouvez utiliser des annotations pour :
+1. Aider le compilateur, et surtout documenter du code pour le prochain développeur qui devra le lire (qui pourrait être vous dans le futur !).
+1. Vous assurer que ce que le compilateur voit est ce que vous pensiez qu'il devrait voir. C'est votre compréhension du code qui correspond à une analyse algorithmique du code (effectuée par le compilateur).
 
-TypeScript uses postfix type annotations popular in other *optionally* annotated languages (e.g. ActionScript and F#).
+TypeScript utilise des annotations de type postfix, très populaires dans d'autres langages (par exemple ActionScript et F#).
 
 ```ts
 var foo: number = 123;
 ```
-So if you do something wrong the compiler will error e.g.:
+Donc, si vous écrivez du code incorrect, le compilateur provoquera une erreur, par exemple :
 
 ```ts
 var foo: number = '123'; // Error: cannot assign a `string` to a `number`
 ```
 
-We will discuss all the details of all the annotation syntax supported by TypeScript in a later chapter.
+Nous discuterons des détails de toutes les syntaxes d'annotation prises en charge par TypeScript dans un chapitre ultérieur.
 
-### Types are structural
-In some languages (specifically nominally typed ones) static typing results in unnecessary ceremony because even though *you know* that the code will work fine the language semantics force you to copy stuff around. This is why stuff like [automapper for C#](http://automapper.org/) is *vital* for C#. In TypeScript because we really want it to be easy for JavaScript developers with a minimum cognitive overload, types are *structural*. This means that *duck typing* is a first class language construct. Consider the following example. The function `iTakePoint2D` will accept anything that contains all the things (`x` and `y`) it expects:
+### Les types sont structurels
+Dans certains langages (en particulier ceux nominalement typés), la frappe statique entraîne une cérémonie inutile car même si *vous savez* que le code fonctionnera correctement, la sémantique du langage vous oblige à copier des éléments. Voilà pourquoi des trucs comme [automapper pour C#](http://automapper.org/) est *vital* pour C#. Dans TypeScript, parce que nous voulons vraiment que ce soit facile pour les développeurs JavaScript avec une surcharge cognitive minimale, les types sont *structurels*. Cela signifie que le *duck typing* est une construction de langage de première classe. Prenons l'exemple suivant. La fonction `iTakePoint2D` acceptera tout ce qu'elle contient (`x` et `y`) qu'elle attend comme un ensemble :
 
 ```ts
 interface Point2D {
@@ -70,8 +70,8 @@ iTakePoint2D(point3D); // extra information okay
 iTakePoint2D({ x: 0 }); // Error: missing information `y`
 ```
 
-### Type errors do not prevent JavaScript emit
-To make it easy for you to migrate your JavaScript code to TypeScript, even if there are compilation errors, by default TypeScript *will emit valid JavaScript* the best that it can. e.g.
+### Les erreurs de frappe n'empêchent pas l'émission de JavaScript
+Pour vous permettre de migrer facilement votre code JavaScript vers TypeScript, même s'il y a des erreurs de compilation, par défaut TypeScript *émettra du JavaScript* valide du mieux qu'il peut, par exemple :
 
 ```ts
 var foo = 123;
@@ -85,24 +85,24 @@ var foo = 123;
 foo = '456';
 ```
 
-So you can incrementally upgrade your JavaScript code to TypeScript. This is very different from how many other language compilers work and yet another reason to move to TypeScript.
+Vous pouvez donc mettre à niveau progressivement votre code JavaScript vers TypeScript. C'est très différent du nombre d'autres compilateurs de langage et c'est une autre raison de passer à TypeScript.
 
-### Types can be ambient
-A major design goal of TypeScript was to make it possible for you to safely and easily use existing JavaScript libraries in TypeScript. TypeScript does this by means of *declaration*. TypeScript provides you with a sliding scale of how much or how little effort you want to put in your declarations, the more effort you put the more type safety + code intelligence you get. Note that definitions for most of the popular JavaScript libraries have already been written for you by the [DefinitelyTyped community](https://github.com/borisyankov/DefinitelyTyped) so for most purposes either:
+### Les types peuvent être ambiants
+L'un des principaux objectifs de conception de TypeScript était de vous permettre d'utiliser facilement et en toute sécurité les bibliothèques JavaScript existantes dans TypeScript. TypeScript le fait au moyen de *déclaration*. TypeScript vous fournit une échelle mobile de combien d'efforts vous voulez mettre dans vos déclarations, plus vous mettez d'efforts, plus vous obtenez de sécurité de type + d'intelligence de code. Notez que les définitions de la plupart des bibliothèques JavaScript populaires ont déjà été écrites pour vous par la [communauté DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyped) donc pour la plupart des usages :
 
-1. The definition file already exists.
-1. Or at the very least, you have a vast list of well reviewed TypeScript declaration templates already available
+1. Le fichier de définition existe déjà.
+2. Ou à tout le moins, vous disposez déjà d'une vaste liste de modèles de déclaration TypeScript bien révisés.
 
-As a quick example of how you would author your own declaration file, consider a trivial example of [jquery](https://jquery.com/). By default (as is to be expected of good JS code) TypeScript expects you to declare (i.e. use `var` somewhere) before you use a variable
+Comme exemple rapide de la façon dont vous allez créer votre propre fichier de déclaration, considérez un exemple trivial de [jquery](https://jquery.com/). Par défaut (comme on peut s'y attendre d'un bon code JS), TypeScript s'attend à ce que vous déclariez (c'est-à-dire, utilisez `var` quelque part) avant d'utiliser une variable :
 ```ts
 $('.awesome').show(); // Error: cannot find name `$`
 ```
-As a quick fix *you can tell TypeScript* that there is indeed something called `$`:
+Comme solution rapide *vous pouvez dire à TypeScript* qu'il y a bien quelque chose appelé `$` :
 ```ts
 declare var $: any;
 $('.awesome').show(); // Okay!
 ```
-If you want you can build on this basic definition and provide more information to help protect you from errors:
+Si vous le souhaitez, vous pouvez vous appuyer sur cette définition de base et fournir plus d'informations pour vous protéger contre les erreurs :
 ```ts
 declare var $: {
     (selector:string): any;
@@ -111,10 +111,10 @@ $('.awesome').show(); // Okay!
 $(123).show(); // Error: selector needs to be a string
 ```
 
-We will discuss the details of creating TypeScript definitions for existing JavaScript in detail later once you know more about TypeScript (e.g. stuff like `interface` and the `any`).
+Nous discuterons en détails de la création de définitions TypeScript pour le JavaScript existant une fois que vous en saurez plus sur TypeScript (par exemple, des choses comme `interface` et `any`).
 
-## Future JavaScript => Now
-TypeScript provides a number of features that are planned in ES6 for current JavaScript engines (that only support ES5 etc). The TypeScript team is actively adding these features and this list is only going to get bigger over time and we will cover this in its own section. But just as a specimen here is an example of a class:
+## Futur JavaScript => Maintenant
+TypeScript fournit un certain nombre de fonctionnalités prévues dans ES6 pour les moteurs JavaScript actuels (qui ne prennent en charge que ES5, etc.). L'équipe TypeScript ajoute activement ces fonctionnalités et cette liste ne fera qu'augmenter avec le temps et nous couvrirons cela dans sa propre section. Mais tout comme un spécimen, voici un exemple de classe :
 
 ```ts
 class Point {
@@ -130,14 +130,14 @@ var p2 = new Point(10, 20);
 var p3 = p1.add(p2); // { x: 10, y: 30 }
 ```
 
-and the lovely fat arrow function:
+et la belle grosse fonction fléchée :
 
 ```ts
 var inc = x => x+1;
 ```
 
-### Summary
-In this section we have provided you with the motivation and design goals of TypeScript. With this out of the way we can dig into the nitty gritty details of TypeScript.
+### Résumé
+Dans cette section, nous vous avons fourni les objectifs de motivation et de conception de TypeScript. Cela posé, nous pouvons maintenant creuser dans les moindres détails de TypeScript.
 
 [](Interfaces are open ended)
 [](Type Inferernce rules)
