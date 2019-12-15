@@ -1,27 +1,27 @@
 * [Getting Started with TypeScript](#getting-started-with-typescript)
 * [TypeScript Version](#typescript-version)
 
-# Getting Started With TypeScript
+# Premiers pas avec TypeScript
 
-TypeScript compiles into JavaScript. JavaScript is what you are actually going to execute (either in the browser or on the server). So you are going to need the following:
+TypeScript se compile en JavaScript. JavaScript est ce que vous allez réellement exécuter (dans le navigateur ou sur le serveur). Vous allez donc avoir besoin des éléments suivants :
 
-* TypeScript compiler (OSS available [in source](https://github.com/Microsoft/TypeScript/) and on [NPM](https://www.npmjs.com/package/typescript))
-* A TypeScript editor (you can use notepad if you want but I use [vscode 🌹](https://code.visualstudio.com/) with an [extension I wrote](https://marketplace.visualstudio.com/items?itemName=basarat.god). Also [lots of other IDES support it as well]( https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support))
+* Compilateur TypeScript (OSS disponible [dans les sources](https://github.com/Microsoft/TypeScript/) et sur [NPM](https://www.npmjs.com/package/typescript))
+* Un éditeur TypeScript (vous pouvez utiliser le bloc-notes si vous le souhaitez mais j'utilise [vscode 🌹](https://code.visualstudio.com/) avec une [extension que j'ai écrit](https://marketplace.visualstudio.com/items?itemName=basarat.god). Aussi [beaucoup d'autres IDES le supportent également]( https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support))
 
 
-## TypeScript Version
+## Version de TypeScript
 
-Instead of using the *stable* TypeScript compiler we will be presenting a lot of new stuff in this book that may not be associated with a version number yet. I generally recommend people to use the nightly version because **the compiler test suite only catches more bugs over time**.
+Au lieu d'utiliser la version *stable* du compilateur TypeScript, nous présenterons de nombreuses nouveautés dans ce livre qui peuvent ne pas encore être associées à un numéro de version. Je recommande généralement aux gens d'utiliser la version nightly car **la suite de tests du compilateur détecte plus de bugs au fil du temps**.
 
-You can install it on the command line as
+Vous pouvez l'installer en ligne de commande en tapant :
 
 ```
 npm install -g typescript@next
 ```
 
-And now the command line `tsc` will be the latest and greatest. Various IDEs support it too, e.g.
+Et maintenant, la ligne de commande `tsc` sera la plus récente et la meilleure. Divers IDE la prennent également en charge, par exemple :
 
-* You can ask vscode to use this version by creating `.vscode/settings.json` with the following contents:
+* Vous pouvez demander à vscode d'utiliser cette version en créant un `.vscode/settings.json` avec le contenu suivant :
 
 ```json
 {
@@ -29,12 +29,12 @@ And now the command line `tsc` will be the latest and greatest. Various IDEs sup
 }
 ```
 
-## Getting the Source Code
-The source for this book is available in the books github repository https://github.com/basarat/typescript-book/tree/master/code most of the code samples can be copied into vscode and you can play with them as is. For code samples that need additional setup (e.g. npm modules), we will link you to the code sample before presenting the code. e.g.
+## Obtenir le code source
+La source de ce livre est disponible dans le repository Github https://github.com/basarat/typescript-book/tree/master/code la plupart des exemples de code peuvent être copiés dans vscode et vous pouvez jouer avec eux tels quels. Pour les exemples de code qui nécessitent une configuration supplémentaire (par exemple, les modules npm), nous vous ajouterons des liens à l'exemple de code avant de présenter le code, par exemple :
 
 `this/will/be/the/link/to/the/code.ts`
 ```ts
-// This will be the code under discussion
+// Ce sera le code en discussion
 ```
 
-With a dev setup out of the way let's jump into TypeScript syntax.
+Avec une installation de développement prête, passons maintenant à la syntaxe TypeScript.
