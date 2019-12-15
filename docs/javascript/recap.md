@@ -1,29 +1,29 @@
-# Your JavaScript is TypeScript
+# Votre JavaScript est TypeScript
 
-There were (and will continue to be) a lot of competitors in *Some syntax* to *JavaScript* compilers. TypeScript is different from them in that *Your JavaScript is TypeScript*. Here's a diagram:
+Il y avait (et continuera d'être) beaucoup de concurrents dans les compilateurs *quelques syntaxes* vers *JavaScript*. TypeScript est différent d'eux en ce que *Votre JavaScript est TypeScript*. Voici un schéma :
 
 ![JavaScript is TypeScript](https://raw.githubusercontent.com/basarat/typescript-book/master/images/venn.png)
 
-However, it does mean that *you need to learn JavaScript* (the good news is *you **only** need to learn JavaScript*). TypeScript is just standardizing all the ways you provide *good documentation* on JavaScript.
+Cependant, cela signifie que *vous devez apprendre JavaScript* (la bonne nouvelle est *vous devez **seulement** apprendre JavaScript*). TypeScript standardise simplement toutes les façons dont vous fournissez *une bonne documentation* sur JavaScript.
 
-* Just giving you a new syntax doesn't help catch bugs - but might help you write cleaner / less bugs (e.g. CoffeeScript).
-* Creating a new language abstracts you too far from your runtimes and communities - but might help on-board you easier if its an already familiar flavour (e.g. Dart - closer for Java / C# devs).
+* Le simple fait de vous donner une nouvelle syntaxe n'aide pas à détecter les bogues - mais peut vous aider à écrire des bogues plus propres/moins nombreux (par exemple CoffeeScript).
+* Créer un nouveau langage vous éloigne trop de vos runtimes et communautés - mais pourrait vous aider plus facilement s'il est déjà familier (par exemple Dart - plus proche pour les développeurs Java/C#).
 
-TypeScript is just JavaScript with docs.
+TypeScript est juste du JavaScript avec de la documentation.
 
-> JSNext is open to interpretation - not everything proposed for the next version of JS actually makes it to browsers. TypeScript only adds support for proposals once they reach [stage 3](https://tc39.es/process-document/).
+> JSNext est ouvert à l'interprétation - tout ce qui est proposé pour la prochaine version de JS ne parvient pas aux navigateurs. TypeScript ne prend en charge les propositions qu'une fois qu'elles ont atteint le [stage 3](https://tc39.es/process-document/).
 
-## Making JavaScript Better
+## Améliorer JavaScript
 
-TypeScript will try to protect you from portions of JavaScript that never worked (so you don't need to remember this stuff):
+TypeScript essaiera de vous protéger contre des parties de JavaScript qui n'ont jamais fonctionné (vous n'avez donc pas besoin de vous souvenir de ce genre de choses) :
 
 ```ts
-[] + []; // JavaScript will give you "" (which makes little sense), TypeScript will error
+[] + []; // JavaScript vous donnera "" (ce qui n'a pas de sens), TypeScript affichera une erreur
 
 //
-// other things that are nonsensical in JavaScript
-// - don't give a runtime error (making debugging hard)
-// - but TypeScript will give a compile time error (making debugging unnecessary)
+// d'autres choses absurdes en JavaScript
+// - ne donnant pas d'erreur d'exécution (rendant le débogage difficile)
+// - mais TypeScript donnera une erreur pendant la compilation (rendant le débogage inutile)
 //
 {} + []; // JS : 0, TS Error
 [] + {}; // JS : "[object Object]", TS Error
@@ -36,10 +36,10 @@ function add(a,b) {
 }
 ```
 
-Essentially TypeScript is linting JavaScript. Just doing a better job at it than other linters that don't have *type information*.
+Essentiellement, TypeScript est un linter de JavaScript. Il fait juste mieux que d'autres linters qui n'ont pas *d'informations de type*.
 
-## You still need to learn JavaScript
+## Vous devez encore apprendre JavaScript
 
-That said TypeScript is very pragmatic about the fact that *you do write JavaScript* so there are some things about JavaScript that you still need to know in order to not be caught off-guard. Let's discuss them next.
+Cela dit, TypeScript est très pragmatique sur le fait que *vous écrivez en JavaScript* donc il y a des choses sur JavaScript que vous devez encore savoir afin de ne pas être pris au dépourvu. Discutons-en ensuite.
 
-> Note: TypeScript is a superset of JavaScript. Just with documentation that can actually be used by compilers / IDEs ;)
+> Note : TypeScript est un sur-ensemble de JavaScript. Juste avec une documentation qui peut être utilisée par les compilateurs/IDE ;)
