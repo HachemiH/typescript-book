@@ -1,9 +1,9 @@
-TypeScript Deep Dive
+Plongée dans TypeScript 
 =======
 
-I've been looking at the issues that turn up commonly when people start using TypeScript. This is based on the lessons from [Stack Overflow](http://stackoverflow.com/tags/typescript/topusers) / [DefinitelyTyped](https://github.com/DefinitelyTyped/) and general engagement with the [TypeScript community](https://github.com/TypeStrong/). You can [follow for updates](https://twitter.com/basarat) and [don't forget to ★ on GitHub](https://github.com/basarat/typescript-book) 🌹
+J'ai étudié les problèmes qui surviennent fréquemment lorsque les gens commencent à utiliser TypeScript. Ceci est basé sur les leçons de [Stack Overflow](http://stackoverflow.com/tags/typescript/topusers) / [DefinitelyTyped](https://github.com/DefinitelyTyped/) et l'engagement général de la [communauté TypeScript](https://github.com/TypeStrong/). Vous pouvez [suivre les mises à jour](https://twitter.com/basarat) et [merci de ★ sur GitHub](https://github.com/basarat/typescript-book) 🌹
 
-## Reviews
+## Avis
 
 * Thanks for the wonderful book. Learned a lot from it. ([link](https://www.gitbook.com/book/basarat/typescript/discussions/21#comment-1468279131934))
 * Its probably the Best TypeScript book out there. Good Job ([link](https://twitter.com/thelondonjs/status/756419561570852864))
@@ -32,11 +32,11 @@ I've been looking at the issues that turn up commonly when people start using Ty
 * @basarat's intro to @typescriptlang is still one of the best going (if not THE best) [link](https://twitter.com/stevealee/status/953953255968698368)
 * This is sweet! So many #typescript goodies! [link](https://twitter.com/pauliescanlon/status/989898852474998784)
 
-## Get Started
-If you are here to read the book online [get started](http://basarat.gitbooks.io/typescript/content/docs/getting-started.html).
+## Commencer
+Si vous êtes ici pour lire le livre en ligne [commencer](http://basarat.gitbooks.io/typescript/content/docs/getting-started.html).
 
-## Translations 
-Book is completely free so you can copy paste whatever you want without requiring permission. If you have a translation you want me to link here. [Send a PR](https://github.com/basarat/typescript-book/edit/master/README.md).
+## Traductions
+Le livre est entièrement gratuit, vous pouvez donc copier-coller ce que vous voulez sans autorisation. Si vous avez une traduction, et vous voulez que je fasse un lien ici [envoyez un PR](https://github.com/basarat/typescript-book/edit/master/README.md).
 * [Filipino](https://github.com/themarshann/typescript-book-fil)
 * [Italian](https://github.com/TizioFittizio/typescript-book)
 * [Chinese](https://github.com/jkchao/typescript-book-chinese)
@@ -46,14 +46,14 @@ Book is completely free so you can copy paste whatever you want without requirin
 * [Spanish](https://github.com/melissarofman/typescript-book)
 * [Korean](https://github.com/radlohead/typescript-book)
 
-## Other Options
-You can also download one of the following:
-* [EPUB for iPad, iPhone, Mac](https://www.gitbook.com/download/epub/book/basarat/typescript)
-* [PDF for Windows and others](https://www.gitbook.com/download/pdf/book/basarat/typescript)
-* [MOBI for Kindle](https://www.gitbook.com/download/mobi/book/basarat/typescript)
+## Autres options
+Vous pouvez également télécharger l'un des formats suivants :
+* [EPUB pour iPad, iPhone, Mac](https://www.gitbook.com/download/epub/book/basarat/typescript)
+* [PDF pour Windows and others](https://www.gitbook.com/download/pdf/book/basarat/typescript)
+* [MOBI pour Kindle](https://www.gitbook.com/download/mobi/book/basarat/typescript)
 
-## Special Thanks
-All the amazing [contributors](https://github.com/basarat/typescript-book/graphs/contributors) 🌹
+## Remerciement spécial
+Tous les incroyables [contributeurs](https://github.com/basarat/typescript-book/graphs/contributors) 🌹
 
-## Share
-Share URL: http://basarat.gitbooks.io/typescript/
+## Partage
+Partagez l'URL: http://basarat.gitbooks.io/typescript/
