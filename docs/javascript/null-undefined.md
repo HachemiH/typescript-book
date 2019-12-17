@@ -1,60 +1,60 @@
-## Null and Undefined
+## Null et Undefined
 
-> [Free youtube video on the subject](https://www.youtube.com/watch?v=kaUfBNzuUAI)
+> [Vidéo Youtube sur le sujet](https://www.youtube.com/watch?v=kaUfBNzuUAI)
 
-JavaScript (and by extension TypeScript) has two bottom types : `null` and `undefined`. They are *intended* to mean different things:
+JavaScript (et par extension TypeScript) a deux types basiques : `null` et `undefined`. Ils sont *destinés* à signifier différentes choses :
 
-* Something hasn't been initialized : `undefined`.
-* Something is currently unavailable: `null`.
+* Quelque chose n'a pas été initialisé : `undefined`.
+* Quelque chose n'est actuellement pas disponible : `null`.
 
 
-### Checking for either
+### Vérification
 
-Fact is you will need to deal with both. Interestingly in JavaScript with `==`, `null` and `undefined` are only equal to each other:
+Le fait est que vous devrez faire face aux deux. Fait intéressant en JavaScript avec `==`, `null` et `undefined` ne sont égaux que l'un à l'autre :
 
 ```ts
-// Both null and undefined are only `==` to themselves and each other:
-console.log(null == null); // true (of course)
-console.log(undefined == undefined); // true (of course)
+// Les valeurs null et undefined sont seulement `==` à elles-mêmes et l'une pour l'autre :
+console.log(null == null); // true (bien sûr)
+console.log(undefined == undefined); // true (bien sûr)
 console.log(null == undefined); // true
 
 
-// You don't have to worry about falsy values making through this check
+// Vous n'avez pas à vous soucier des valeurs falsy lors de cette vérification
 console.log(0 == undefined); // false
 console.log('' == undefined); // false
 console.log(false == undefined); // false
 ```
-Recommend `== null` to check for both `undefined` or `null`. You generally don't want to make a distinction between the two.
+Privilégiez `== null` pour vérifier à la fois `undefined` ou `null`. Vous ne voulez généralement pas faire de distinction entre les deux.
 
 ```ts
 function foo(arg: string | null | undefined) {
   if (arg != null) {
-    // arg must be a string as `!=` rules out both null and undefined. 
+    // arg doit être une chaîne de caractères car `!=` exclut à la fois null et undefined.
   }
 }
 ```
 
-> You could also do `== undefined`, but `== null` is more conventional/shorter.
+> Vous pouvez également faire `== undefined`, mais `== null` est plus conventionnel/plus court.
 
-One exception, root level `undefined` values which we discuss next.
+Il existe une exception, les valeurs `undefined` au niveau racine dont nous discutons ensuite.
 
-### Checking for root level undefined
+### Vérification de undefined au niveau racine 
 
-Remember how I said you should use `== null`. Of course you do (cause I just said it ^). Don't use it for root level things. In strict mode if you use `foo` and `foo` is undefined you get a `ReferenceError` **exception** and the whole call stack unwinds.
+Vous vous souvenez comment je vous ai conseillé d'utiliser `== null` ? Bien sûr que oui (puisque je viens de le dire ^). Ne l'utilisez pas pour les choses au niveau racine. En mode strict, si vous utilisez `foo` et que `foo` n'est pas défini, vous obtenez une `ReferenceError` **exception** et toute la pile d'appels se déroule.
 
-> You should use strict mode ... and in fact the TS compiler will insert it for you if you use modules ... more on those later in the book so you don't have to be explicit about it :)
+> Vous devriez utiliser le mode strict ... et en fait le compilateur TS l'insérera pour vous si vous utilisez des modules ... Nous verrons cela plus tard dans le livre afin que vous n'ayez pas à être explicite à ce sujet :)
 
-So to check if a variable is defined or not at a *global* level you normally use `typeof`:
+Donc, pour vérifier si une variable est définie ou non à un niveau *global*, vous devriez utiliser normalement `typeof` :
 
 ```ts
 if (typeof someglobal !== 'undefined') {
-  // someglobal is now safe to use
+  // someglobal est désormais sûr à utiliser
   console.log(someglobal);
 }
 ```
 
-### Limit explicit use of `undefined`
-Because TypeScript gives you the opportunity to *document* your structures separately from values instead of stuff like:
+### limiter l'utilisation explicite de `undefined`
+Parce que TypeScript vous donne la possibilité de * documenter * vos structures séparément des valeurs au lieu de choses comme :
 ```ts
 function foo(){
   // if Something
@@ -63,7 +63,7 @@ function foo(){
   return {a:1,b:undefined};
 }
 ```
-you should use a type annotation:
+Vous devez utiliser une annotation de type :
 ```ts
 function foo():{a:number,b?:number}{
   // if Something
@@ -73,8 +73,8 @@ function foo():{a:number,b?:number}{
 }
 ```
 
-### Node style callbacks
-Node style callback functions (e.g. `(err,somethingElse)=>{ /* something */ }`) are generally called with `err` set to `null` if there isn't an error. You generally just use a truthy check for this anyways:
+### Callbacks de style Node
+Les fonctions callback de style Node (par exemple `(err, somethingElse) => {/ * quelque chose * /}`) sont généralement appelées avec `err` réglé sur `null` s'il n'y a pas d'erreur. En général, vous utilisez simplement une vérification truthy pour cela :
 
 ```ts
 fs.readFile('someFile', 'utf8', (err,data) => {
@@ -85,18 +85,18 @@ fs.readFile('someFile', 'utf8', (err,data) => {
   }
 });
 ```
-When creating your own APIs it's *okay* to use `null` in this case for consistency. In all sincerity for your own APIs you should look at promises, in that case you actually don't need to bother with absent error values (you handle them with `.then` vs. `.catch`).
+Lors de la création de vos propres APIs, il est *correct* d'utiliser dans ce cas `null` pour des raisons de cohérence. En toute sincérité pour vos propres API, vous devriez regarder les promesses, dans ce cas, vous n'avez en fait pas besoin de vous soucier des valeurs d'erreur absentes (vous les gérez avec `.then` vs `.catch`).
 
-### Don't use `undefined` as a means of denoting *validity*
+### N'utilisez pas `undefined` comme moyen de dénoter *la validité*
 
-For example an awful function like this:
+Par exemple, une fonction horrible comme celle-ci :
 
 ```ts
 function toInt(str: string) {
   return str ? parseInt(str) : undefined;
 }
 ```
-can be much better written like this:
+Peut être beaucoup mieux écrit comme ceci :
 ```ts
 function toInt(str: string): { valid: boolean, int?: number } {
   const int = parseInt(str);
@@ -109,19 +109,19 @@ function toInt(str: string): { valid: boolean, int?: number } {
 }
 ```
 
-### JSON and serialization
+### JSON et sérialisation
 
-The JSON standard has support for encoding `null` but not `undefined`. When JSON-encoding an object with an attribute that is `null`, the attribute will be included with its null value, whereas an attribute with an `undefined` value will be excluded entirely.
+La norme JSON prend en charge l'encodage `null` mais pas` undefined`. Lors de l'encodage JSON d'un objet avec un attribut qui est `null`, l'attribut sera inclus avec sa valeur nulle, tandis qu'un attribut avec une valeur `undefined` sera entièrement exclu.
 
 ```ts
 JSON.stringify({willStay: null, willBeGone: undefined}); // {"willStay":null}
 ```
 
-As a result, JSON-based databases may support `null` values but not `undefined` values. Since attributes set to `null` are encoded, you can transmit the intent to clear an attribute by setting its value to `null` before encoding and transmitting the object to a remote store.
+Par conséquent, les bases de données basées sur JSON peuvent prendre en charge des valeurs `null` mais pas les valeurs `undefined`. Étant donné que les attributs définis sur `null` sont encodés, vous pouvez transmettre l'intention d'effacer un attribut en définissant sa valeur sur `null` avant d'encoder et de transmettre l'objet à une cible distante.
 
-Setting attribute values to undefined can save on storage and transmission costs, as the attribute names will not be encoded. However, this can complicate the semantics of clearing values vs. absent values.
+La définition de valeurs d'attribut à `undefined` peut permettre d'économiser sur les coûts de stockage et de transmission, car les noms d'attribut ne seront pas encodés. Cependant, cela peut compliquer la sémantique de nettoyage des valeurs par rapport aux valeurs absentes.
 
-### Final thoughts
-TypeScript team doesn't use `null` : [TypeScript coding guidelines](https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines#null-and-undefined) and it hasn't caused any problems. Douglas Crockford thinks [`null` is a bad idea](https://www.youtube.com/watch?v=PSGEjv3Tqo0&feature=youtu.be&t=9m21s) and we should all just use `undefined`.
+### Dernières pensées
+L'équipe TypeScript n'utilise pas `null` : [TypeScript coding guidelines](https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines#null-and-undefined) et cela n'a causé aucun problème. Douglas Crockford pense que [`null` est une mauvaise idée](https://www.youtube.com/watch?v=PSGEjv3Tqo0&feature=youtu.be&t=9m21s) et nous devrions tous simplement utiliser `undefined`.
 
-However, NodeJS style code bases uses `null` for Error arguments as standard as it denotes `Something is currently unavailable`. I personally don't care to distinguish between the two as most projects use libraries with differing opinions and just rule out both with `== null`.
+Cependant, les bases de code de style NodeJS utilisent `null` pour les arguments d'erreur en standard car il indique `Quelque chose n'est pas disponible actuellement`. Personnellement, je ne me soucie pas de faire la distinction entre les deux, car la plupart des projets utilisent des bibliothèques avec des opinions différentes et excluent simplement les deux avec `== null`.
