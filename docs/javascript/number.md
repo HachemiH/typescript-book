@@ -1,29 +1,30 @@
 ## Number
-Whenever you are handling numbers in any programming language you need to be aware of the idiosyncrasies of how the language handles numbers. Here are a few critical pieces of information about numbers in JavaScript that you should be aware of.
+Chaque fois que vous manipulez des nombres dans n'importe quel langage de programmation, vous devez être conscient des particularités de la façon dont le langage gère les nombres. Voici quelques informations essentielles sur les nombres en JavaScript que vous devez connaître.
 
 ### Core Type
-JavaScript has only one number type. It is a double-precision 64-bit `Number`. Below we discuss its limitations along with a recommended solution.
+JavaScript n'a qu'un seul type de nombres. Il s'agit d'un `Number` de 64 bits à double précision. Ci-dessous, nous discutons de ses limites avec une solution recommandée.
+
 
 ### Decimal
-For those familiar with doubles / float in other languages, you would know that binary floating point numbers *do not* map correctly to Decimal numbers. A trivial (and famous) example with JavaScript's built in numbers is shown below:
+Pour ceux qui connaissent le double / float dans d'autres langues, vous savez que les nombres binaires à virgule flottante *ne correspondent pas* correctement aux nombres décimaux. Un exemple trivial (et célèbre) avec les nombres intégrés de JavaScript est illustré ci-dessous :
 
 ```js
 console.log(.1 + .2); // 0.30000000000000004
 ```
 
-> For true decimal math use `big.js` mentioned below.
+> Pour un vrai calcul décimal, utilisez `big.js` mentionné ci-dessous.
 
 ### Integer
-The integer limits represented by the built in number type are `Number.MAX_SAFE_INTEGER` and `Number.MIN_SAFE_INTEGER`.
+Les limites des entiers représentées par le type de nombre intégré sont `Number.MAX_SAFE_INTEGER` et `Number.MIN_SAFE_INTEGER`.
 
 ```js
 console.log({max: Number.MAX_SAFE_INTEGER, min: Number.MIN_SAFE_INTEGER});
 // {max: 9007199254740991, min: -9007199254740991}
 ```
 
-**Safe** in this context refers to the fact that the value *cannot be the result of a rounding error*.
+**Safe** dans ce contexte fait référence au fait que la valeur *ne peut pas être le résultat d'une erreur d'arrondi*.
 
-The unsafe values are `+1 / -1` away from these safe values and any amount of addition / subtraction will *round* the result.
+Les valeurs dangereuses sont à `+1 / -1` de ces valeurs sûres et toute quantité d'addition / soustraction *arrondira* le résultat.
 
 ```js
 console.log(Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2); // true!
@@ -31,58 +32,58 @@ console.log(Number.MIN_SAFE_INTEGER - 1 === Number.MIN_SAFE_INTEGER - 2); // tru
 
 console.log(Number.MAX_SAFE_INTEGER);      // 9007199254740991
 console.log(Number.MAX_SAFE_INTEGER + 1);  // 9007199254740992 - Correct
-console.log(Number.MAX_SAFE_INTEGER + 2);  // 9007199254740992 - Rounded!
-console.log(Number.MAX_SAFE_INTEGER + 3);  // 9007199254740994 - Rounded - correct by luck
-console.log(Number.MAX_SAFE_INTEGER + 4);  // 9007199254740996 - Rounded!
+console.log(Number.MAX_SAFE_INTEGER + 2);  // 9007199254740992 - Arrondi !
+console.log(Number.MAX_SAFE_INTEGER + 3);  // 9007199254740994 - Arrondi - correct by luck
+console.log(Number.MAX_SAFE_INTEGER + 4);  // 9007199254740996 - Arrondi !
 ```
 
-To check safety you can use ES6 `Number.isSafeInteger`:
+Pour vérifier la sécurité, vous pouvez utiliser ES6 `Number.isSafeInteger` :
 
 ```js
-// Safe value
+// Valeur sûre
 console.log(Number.isSafeInteger(Number.MAX_SAFE_INTEGER)); // true
 
-// Unsafe value
+// Valeur non sûre
 console.log(Number.isSafeInteger(Number.MAX_SAFE_INTEGER + 1)); // false
 
-// Because it might have been rounded to it due to overflow
+// Parce qu'elle pourrait y avoir été arrondie en raison d'un débordement
 console.log(Number.isSafeInteger(Number.MAX_SAFE_INTEGER + 10)); // false
 ```
 
-> JavaScript will eventually get [BigInt](https://developers.google.com/web/updates/2018/05/bigint) support. For now, if you want arbitrary precision integer math use `big.js` mentioned below.
+> javascript a récemment obtenu le support de [bigint](https://javascript.info/bigint) support. Mais, vous pouvez également, si vous voulez des mathématiques entières de précision arbitraire, utiliser `big.js` mentionné ci-dessous.
 
 ### big.js
-Whenever you use math for financial calculations (e.g. GST calculation, money with cents, addition etc) use a library like [big.js](https://github.com/MikeMcl/big.js/) which is designed for
-* Perfect decimal math
-* Safe out of bound integer values
+chaque fois que vous utilisez les mathématiques pour les calculs financiers (par exemple, calcul gst, argent avec cents, ajout, etc.) utilisez une bibliothèque comme [big.js](https://github.com/mikemcl/big.js/) qui est conçu pour
+* mathématiques décimales parfaites
+* valeurs hors limites sûres
 
-Installation is simple:
+l'installation est simple :
 ```bash
 npm install big.js @types/big.js
 ```
 
-Quick Usage example:
+exemple d'utilisation rapide :
 
 ```js
-import { Big } from 'big.js';
+import { big } from 'big.js';
 
-export const foo = new Big('111.11111111111111111111');
-export const bar = foo.plus(new Big('0.00000000000000000001'));
+export const foo = new big('111.11111111111111111111');
+export const bar = foo.plus(new big('0.00000000000000000001'));
 
-// To get a number:
-const x: number = Number(bar.toString()); // Loses the precision
+// pour obtenir un nombre :
+const x: number = number(bar.tostring()); // perd la précision
 ```
 
-> Do not use this library for math used for UI / performance intensive purposes e.g charts, canvas drawing etc.
+> N'utilisez pas cette bibliothèque pour les mathématiques utilisées à des fins intensives d'interface utilisateur / performances, par exemple des graphiques, des dessins sur toile, etc.
 
-### NaN
-When some number calculation is not representable by a valid number, JavaScript returns a special `NaN` value. A  classic example is imaginary numbers:
+### nan
+lorsqu'un calcul de nombre n'est pas représentable par un nombre valide, javaScript renvoie une valeur spéciale `NaN`. Un exemple classique est les nombres imaginaires :
 
 ```js
 console.log(Math.sqrt(-1)); // NaN
 ```
 
-Note: Equality checks **don't** work on `NaN` values. Use `Number.isNaN` instead:
+Remarque : les contrôles d'égalité **ne fonctionnent pas** sur les valeurs `NaN`. Utilisez plutôt `Number.isNaN` :
 
 ```js
 // Don't do this
@@ -93,42 +94,42 @@ console.log(Number.isNaN(NaN)); // true
 ```
 
 ### Infinity
-The outer bounds of values representable in Number are available as static `Number.MAX_VALUE` and `-Number.MAX_VALUE` values.
+Les limites extérieures des valeurs représentables dans Number sont disponibles en tant que valeurs statiques `Number.MAX_VALUE` et `-Number.MAX_VALUE`.
 
 ```js
 console.log(Number.MAX_VALUE);  // 1.7976931348623157e+308
 console.log(-Number.MAX_VALUE); // -1.7976931348623157e+308
 ```
 
-Values outside the range where precision isn't changed are clamped to these limits e.g.
+Les valeurs en dehors de la plage où la précision n'est pas modifiée sont fixées à ces limites, par exemple :
 
 ```js
 console.log(Number.MAX_VALUE + 1 == Number.MAX_VALUE);   // true!
 console.log(-Number.MAX_VALUE - 1 == -Number.MAX_VALUE); // true!
 ```
 
-Values outside the range where precision is changed resolve to special values `Infinity`/`-Infinity` e.g.
+Les valeurs en dehors de la plage où la précision est modifiée sont converties en valeurs spéciales `Infinity` / `-Infinity` par exemple.
 
 ```js
 console.log(Number.MAX_VALUE + 10**1000);  // Infinity
 console.log(-Number.MAX_VALUE - 10**1000); // -Infinity
 ```
 
-Of-course, these special infinity values also show up with arithmetic that requires it e.g.
+Bien sûr, ces valeurs d'infini spéciales apparaissent également avec une arithmétique qui l'exige, par exemple :
 
 ```js
 console.log( 1 / 0); // Infinity
 console.log(-1 / 0); // -Infinity
 ```
 
-You can use these `Infinity` values manually or using static members of the `Number` class as shown below:
+Vous pouvez utiliser ces valeurs `Infinity` manuellement ou en utilisant des membres statiques de la classe `Number` comme indiqué ci-dessous :
 
 ```js
 console.log(Number.POSITIVE_INFINITY === Infinity);  // true
 console.log(Number.NEGATIVE_INFINITY === -Infinity); // true
 ```
 
-Fortunately comparison operators (`<` / `>`) work reliably on infinity values:
+Heureusement, les opérateurs de comparaison (`<` / `>`) fonctionnent de manière fiable sur les valeurs de l'infini :
 
 ```js
 console.log( Infinity >  1); // true
@@ -137,16 +138,16 @@ console.log(-Infinity < -1); // true
 
 ### Infinitesimal
 
-The smallest non-zero value representable in Number is available as static `Number.MIN_VALUE`
+La plus petite valeur non nulle représentable dans Number est disponible en tant que `Number.MIN_VALUE` statique.
 
 ```js
 console.log(Number.MIN_VALUE);  // 5e-324
 ```
 
-Values smaller than `MIN_VALUE` ("underflow values") are converted to 0.
+Les valeurs inférieures à `MIN_VALUE` ("valeurs de sous-dépassement") sont converties en 0.
 
 ```js
 console.log(Number.MIN_VALUE / 10);  // 0
 ```
 
-> Further intuition: Just like values bigger than `Number.MAX_VALUE` get clamped to INFINITY, values smaller than `Number.MIN_VALUE` get clamped to `0`.
+> Intuition supplémentaire : tout comme les valeurs supérieures à `Number.MAX_VALUE` sont fixées à INFINITY, les valeurs inférieures à `Number.MIN_VALUE` sont limitées à `0`.
