@@ -1,44 +1,45 @@
 ## Truthy
 
-JavaScript has a concept of `truthy` i.e. things that evaluate like `true` would in certain positions (e.g. `if` conditions and the boolean `&&` `||` operators). The following things are truthy in JavaScript. An example is any number other than `0` e.g.
+JavaScript a un concept de `truthy`, c'est-à-dire que les choses qui s'évaluent comme `true` le seraient dans certaines positions (par exemple, les conditions `if` et les opérateurs booléens `&&` et `||`). Les choses suivantes sont truthy en JavaScript. Un exemple est tout nombre autre que `0`, par exemple :
 
 ```ts
-if (123) { // Will be treated like `true`
+if (123) { // Sera traité comme `true`
   console.log('Any number other than 0 is truthy');
 }
 ```
 
-Something that isn't truthy is called `falsy`.
+Quelque chose qui n'est pas véridique s'appelle `falsy`.
 
-Here's a handy table for your reference.
+Voici un tableau pratique pour vos références.
 
-| Variable Type   | When it is *falsy*       | When it is *truthy*      |
-|-----------------|--------------------------|--------------------------|
-| `boolean`       | `false`                  | `true`                   |
-| `string`        | `''` (empty string)      | any other string         |
-| `number`        | `0`  `NaN`               | any other number         |
-| `null`          | always                   | never                    |
-| `undefined`     | always                   | never                    |
-| Any other Object including empty ones like `{}`,`[]` | never | always |
+| Type de variable                                             | Quand c'est *falsy* | Quand c'est *truthy*             |
+|--------------------------------------------------------------|---------------------|----------------------------------|
+| `boolean`                                                    | `false`             | `true`                           |
+| `string`                                                     | `''` (string vide)  | toute autre chaîne de caractères |
+| `number`                                                     | `0`  `NaN`          | toute autre chaîne de caractères |
+| `null`                                                       | toujours            | jamais                           |
+| `undefined`                                                  | toujours            | jamais                           |
+| Tout autre objet, y compris des objets vides comme `{}`,`[]` | jamais              | toujours                         |
 
 
-### Being explicit
+### Être explicite
 
-> The `!!` pattern
+> Le pattern `!!` 
 
-Quite commonly it helps to be explicit that the intent is to treat the value as a `boolean` and convert it into a *true boolean* (one of `true`|`false`). You can easily convert values to a true boolean by prefixing it with `!!` e.g. `!!foo`. Its just `!` used *twice*. The first `!` converts the variable (in this case `foo`) to a boolean but inverts the logic (*truthy* -`!`> `false`, *falsy* -`!`> `true`). The second one toggles it again to match the nature of the original object (e.g. *truthy* -`!`> `false` -`!`> `true`).
+Très souvent, il est utile d'expliciter que l'intention est de traiter la valeur comme un `boolean` et de la convertir en un *vrai booléen* (l'un de `true` | `false`). Vous pouvez facilement convertir des valeurs en un vrai booléen en les préfixants avec `!!` par exemple `!!foo`. C'est juste `!` Utilisé *deux fois*. Le premier `!` convertit la variable (dans ce cas `foo`) en booléen mais inverse la logique (*truthy* -`!`> `false`, *falsy* -`!`> `true`). Le second le bascule à nouveau pour correspondre à la nature de l'objet d'origine (par exemple *truthy* -`!`> `false` -`!`> `true`).
 
-It is common to use this pattern in lots of places e.g.
+
+Il est courant d'utiliser ce modèle dans de nombreux endroits, par exemple :
 
 ```js
-// Direct variables
+// Variables directes
 const hasName = !!name;
 
-// As members of objects
+// En tant que propriétés d'objets
 const someObj = {
   hasName: !!name
 }
 
-// e.g. in ReactJS JSX
+// par exemple dans ReactJS JSX
 {!!someName && <div>{someName}</div>}
 ```
