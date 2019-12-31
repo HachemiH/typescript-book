@@ -8,7 +8,7 @@ if (123) { // Sera traité comme `true`
 }
 ```
 
-Quelque chose qui n'est pas véridique s'appelle `falsy`.
+Quelque chose qui n'est pas vrai s'appelle `falsy`.
 
 Voici un tableau pratique pour vos références.
 
