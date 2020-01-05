@@ -5,18 +5,18 @@
 * [Tip: Arrow Function inheritance](#tip-arrow-functions-and-inheritance)
 * [Tip: Quick object return](#tip-quick-object-return)
 
-### Arrow Functions
+### Fonctions Fléchées
 
-Lovingly called the *fat arrow* (because `->` is a thin arrow and `=>` is a fat arrow) and also called a *lambda function* (because of other languages). Another commonly used feature is the fat arrow function `()=>something`. The motivation for a *fat arrow* is:
-1. You don't need to keep typing `function`
-2. It lexically captures the meaning of `this`
-2. It lexically captures the meaning of `arguments`
+On l'appelle affectueusement la *grosse flèche* (parce que `->` est une flèche fine et `=>` est une grosse flèche) et aussi appelée *fonction lambda* (à cause d'autres langages). Une autre caractéristique couramment utilisée est la grosse fonction fléchée `()=> something`. La motivation pour une *grosse flèche* est :
+1. Vous n'avez pas besoin de continuer à taper `function`
+2. Il capture lexicalement le sens de `this`
+2. Il capture lexicalement le sens de `arguments`
 
-For a language that claims to be functional, in JavaScript you tend to be typing `function` quite a lot. The fat arrow makes it simple for you to create a function
+Pour un langage qui prétend être fonctionnel, en JavaScript, vous avez tendance à taper beaucoup `function`. La grosse flèche facilite la création d'une fonction
 ```ts
 var inc = (x)=>x+1;
 ```
-`this` has traditionally been a pain point in JavaScript. As a wise man once said "I hate JavaScript as it tends to lose the meaning of `this` all too easily". Fat arrows fix it by capturing the meaning of `this` from the surrounding context. Consider this pure JavaScript class:
+`this` a toujours été un point sensible dans JavaScript. Comme l'a dit un sage "je déteste JavaScript car il a tendance à perdre trop facilement le sens de `this`". Les grosses flèches corrigent cela en capturant la signification de `this` dans le contexte environnant. Considérez cette classe JavaScript pure :
 
 ```ts
 function Person(age) {
@@ -28,9 +28,9 @@ function Person(age) {
 var person = new Person(1);
 setTimeout(person.growOld,1000);
 
-setTimeout(function() { console.log(person.age); },2000); // 1, should have been 2
+setTimeout(function() { console.log(person.age); },2000); // 1, aurait du être 2
 ```
-If you run this code in the browser `this` within the function is going to point to `window` because `window` is going to be what executes the `growOld` function. Fix is to use an arrow function:
+Si vous exécutez ce code dans le navigateur, `this` dans la fonction va pointer vers `window` parce que `window` va être ce qui exécute la fonction `growOld`. Le correctif consiste à utiliser une fonction fléchée :
 ```ts
 function Person(age) {
     this.age = age;
@@ -43,13 +43,13 @@ setTimeout(person.growOld,1000);
 
 setTimeout(function() { console.log(person.age); },2000); // 2
 ```
-The reason why this works is the reference to `this` is captured by the arrow function from outside the function body. This is equivalent to the following JavaScript code (which is what you would write yourself if you didn't have TypeScript):
+La raison pour laquelle cela fonctionne est que la référence à `this` est capturée par la fonction fléchée depuis l'extérieur du corps de la fonction. Cela équivaut au code JavaScript suivant (ce que vous écririez vous-même si vous n'aviez pas TypeScript) :
 ```ts
 function Person(age) {
     this.age = age;
     var _this = this;  // capture this
     this.growOld = function() {
-        _this.age++;   // use the captured this
+        _this.age++;   // utilise le this capturé
     }
 }
 var person = new Person(1);
@@ -57,7 +57,7 @@ setTimeout(person.growOld,1000);
 
 setTimeout(function() { console.log(person.age); },2000); // 2
 ```
-Note that since you are using TypeScript you can be even sweeter in syntax and combine arrows with classes:
+Notez que puisque vous utilisez TypeScript, vous pouvez être encore plus doux dans la syntaxe et combiner des flèches avec des classes :
 ```ts
 class Person {
     constructor(public age:number) {}
@@ -71,38 +71,38 @@ setTimeout(person.growOld,1000);
 setTimeout(function() { console.log(person.age); },2000); // 2
 ```
 
-> [A sweet video about this pattern 🌹](https://egghead.io/lessons/typescript-make-usages-of-this-safe-in-class-methods)
+> [Une vidéo sympa sur ce pattern 🌹](https://egghead.io/lessons/typescript-make-usages-of-this-safe-in-class-methods)
 
-#### Tip: Arrow Function Need
-Beyond the terse syntax, you only *need* to use the fat arrow if you are going to give the function to someone else to call. Effectively:
+#### Astuce: Besoin de fonction fléchée
+Au-delà de la syntaxe concise, vous n'avez *besoin* d'utiliser la grosse flèche que si vous allez donner la fonction à quelqu'un d'autre à appeler. Effectivement :
 ```ts
 var growOld = person.growOld;
-// Then later someone else calls it:
+// Plus tard, quelqu'un d'autre l'appelle :
 growOld();
 ```
-If you are going to call it yourself, i.e.
+Si vous allez l'appeler vous-même, c'est-à-dire
 ```ts
 person.growOld();
 ```
-then `this` is going to be the correct calling context (in this example `person`).
+alors `this` va être le contexte d'appel correct (dans cet exemple `person`).
 
-#### Tip: Arrow Function Danger
+#### Astuce : Danger de la fonction fléchée
 
-In fact if you want `this` *to be the calling context* you should *not use the arrow function*. This is the case with callbacks used by libraries like jquery, underscore, mocha and others. If the documentation mentions functions on `this` then you should probably just use a `function` instead of a fat arrow. Similarly if you plan to use `arguments` don't use an arrow function.
+En fait, si vous voulez que `this` *soit le contexte d'appel* vous ne devez *pas utiliser la fonction fléchée*. C'est le cas des callbacks utilisés par des bibliothèques comme jquery, underscore, mocha et autres. Si la documentation mentionne des fonctions sur `this`, vous devriez probablement simplement utiliser une `function` au lieu d'une grosse flèche. De même, si vous prévoyez d'utiliser `arguments`, n'utilisez pas de fonction fléchée.
 
-#### Tip: Arrow functions with libraries that use `this`
-Many libraries do this e.g. `jQuery` iterables (one example https://api.jquery.com/jquery.each/) will use `this` to pass you the object that it is currently iterating over. In this case if you want to access the library passed `this` as well as the surrounding context just use a temp variable like `_self` like you would in the absence of arrow functions.
+#### Astuce: les fonctions fléchées avec les bibliothèques qui utilisent `this`
+De nombreuses bibliothèques le font par exemple `jQuery` iterables (un exemple https://api.jquery.com/jquery.each/) utilisera `this` pour vous passer l'objet sur lequel il est en train d'itérer. Dans ce cas, si vous souhaitez accéder au `this` passé de la bibliothèque ainsi qu'au contexte environnant, utilisez simplement une variable temporaire comme `_self` comme vous le feriez en l'absence de fonctions fléchées.
 
 ```ts
 let _self = this;
 something.each(function() {
-    console.log(_self); // the lexically scoped value
-    console.log(this); // the library passed value
+    console.log(_self); // la valeur de portée lexicale
+    console.log(this); // la valeur passée de la librairie
 });
 ```
 
-#### Tip: Arrow functions and inheritance
-Arrow functions as properties on classes work fine with inheritance: 
+#### Astuce : fonctions fléchées et héritage
+Les fonctions fléchées comme propriétés sur les classes fonctionnent bien avec l'héritage :
 
 ```ts
 class Adder {
@@ -121,19 +121,19 @@ const child = new Child(123);
 console.log(child.callAdd(123)); // 246
 ```
 
-However, they do not work with the `super` keyword when you try to override the function in a child class. Properties go on `this`. Since there is only one `this` such functions cannot participate in a call to `super` (`super` only works on prototype members). You can easily get around it by creating a copy of the method before overriding it in the child.
+Cependant, ils ne fonctionnent pas avec le mot clé `super` lorsque vous essayez de remplacer la fonction dans une classe enfant. Les propriétés continuent sur `this`. Puisqu'il n'y a qu'un seul `this` ces fonctions ne peuvent pas participer à un appel à `super` (`super` ne fonctionne que sur les membres du prototype). Vous pouvez facilement la contourner en créant une copie de la méthode avant de la remplacer chez l'enfant.
 
 ```ts
 class Adder {
     constructor(public a: number) {}
-    // This function is now safe to pass around
+    // Cette fonction est désormais sûre à transmettre
     add = (b: number): number => {
         return this.a + b;
     }
 }
 
 class ExtendedAdder extends Adder {
-    // Create a copy of parent before creating our own
+    // Créer une copie du parent avant de créer le nôtre
     private superAdd = this.add;
     // Now create our override
     add = (b: number): number => {
@@ -142,21 +142,21 @@ class ExtendedAdder extends Adder {
 }
 ```
 
-### Tip: Quick object return
+### Astuce: retour rapide d'objet
 
-Sometimes you need a function that just returns a simple object literal. However, something like
+Parfois, vous avez besoin d'une fonction qui renvoie simplement un objet littéral simple. Cependant, quelque chose comme
 
 ```ts
-// WRONG WAY TO DO IT
+// MAUVAISE FAÇON DE LE FAIRE
 var foo = () => {
     bar: 123
 };
 ```
-is parsed as a *block* containing a *JavaScript Label* by JavaScript runtimes (cause of the JavaScript specification).
+est analysé comme un *bloc* contenant un *Label JavaScript* par les runtimes JavaScript (à cause de la spécification JavaScript).
 
->  If that doesn't make sense, don't worry, as you get a nice compiler error from TypeScript saying "unused label" anyways. Labels are an old (and mostly unused) JavaScript feature that you can ignore as a modern GOTO (considered bad by experienced developers 🌹)
+>  Si cela n'a pas de sens, ne vous inquiétez pas, car vous obtenez une belle erreur de compilation de TypeScript disant "unused label"(label inutilisé) de toute façon. Les labels sont une ancienne fonctionnalité JavaScript (et la plupart du temps inutilisée) que vous pouvez ignorer en tant que GOTO moderne (considérée comme mauvaise par les développeurs expérimentés 🌹)
 
-You can fix it by surrounding the object literal with `()`:
+Vous pouvez le corriger en entourant l'objet littéral avec `()` :
 
 ```ts
 // Correct 🌹
