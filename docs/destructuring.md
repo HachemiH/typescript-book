@@ -1,11 +1,11 @@
-### Destructuring
+### Déstructuration
 
-TypeScript supports the following forms of Destructuring (literally named after de-structuring i.e. breaking up the structure):
+TypeScript prend en charge les formes de déstructuration suivantes (littéralement nommées après la dé-structuration, c'est-à-dire la rupture de la structure) :
 
-1. Object Destructuring
-1. Array Destructuring
+1. Déstructuration d'objets
+1. Déstructuration de tableaux
 
-It is easy to think of destructuring as an inverse of *structuring*. The method of *structuring* in JavaScript is the object literal:
+Il est facile de considérer la déstructuration comme l'inverse de la *structuration*. La méthode de *structuration* en JavaScript est l’objet littéral :
 
 ```ts
 var foo = {
