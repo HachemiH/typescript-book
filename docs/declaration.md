@@ -1,1 +1,1 @@
-analogy with c headers
+analogie avec les en-têtes c
