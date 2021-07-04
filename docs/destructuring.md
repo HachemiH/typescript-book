@@ -14,25 +14,27 @@ var foo = {
     }
 };
 ```
-Without the awesome *structuring* support built into JavaScript, creating new objects on the fly would indeed be very cumbersome. Destructuring brings the same level of convenience to getting data out of a structure.
 
-#### Object Destructuring
-Destructuring is useful because it allows you to do in a single line, what would otherwise require multiple lines. Consider the following case:
+Sans l'incroyable support de *structuration* intégré à JavaScript, créer de nouveaux objets à la volée serait en effet très fastidieux. La déstructuration apporte le même niveau de commodité pour extraire des données d'une structure.
+
+
+#### Déstructuration d'objets
+La déstructuration est utile car elle permet de faire en une seule ligne, ce qui nécessiterait autrement plusieurs lignes. Considérons le cas suivant :
 
 ```ts
 var rect = { x: 0, y: 10, width: 15, height: 20 };
 
-// Destructuring assignment
+// Affectation par destructuring
 var {x, y, width, height} = rect;
 console.log(x, y, width, height); // 0,10,15,20
 
 rect.x = 10;
-({x, y, width, height} = rect); // assign to existing variables using outer parentheses
+({x, y, width, height} = rect); // affectation aux variables existantes à l'aide de parenthèses externes
 console.log(x, y, width, height); // 10,10,15,20
 ```
-Here in the absence of destructuring you would have to pick off `x,y,width,height` one by one from `rect`.
+Ici en l'absence de déstructuration il faudrait extraire `x,y,width,height` un par un à partir de `rect`.
 
-To assign an extracted variable to a new variable name you can do the following:
+Pour affecter une variable extraite à un nouveau nom de variable, vous pouvez procéder comme suit :
 
 ```ts
 // structure
