@@ -45,31 +45,32 @@ const {"some property": someProperty} = obj;
 console.log(someProperty === "some value"); // true
 ```
 
-Additionally you can get *deep* data out of a structure using destructuring. This is shown in the following example:
+De plus, vous pouvez extraire des données *profondes* d'une structure en utilisant la déstructuration. Ceci est illustré dans l'exemple suivant :
 
 ```ts
 var foo = { bar: { bas: 123 } };
-var {bar: {bas}} = foo; // Effectively `var bas = foo.bar.bas;`
+var {bar: {bas}} = foo; // Effectivement `var bas = foo.bar.bas;`
 ```
 
-#### Object Destructuring with rest
-You can pick up any number of elements from an object and get *an object* of the remaining elements using object destructuring with rest.
+#### Déstructuration d'objet avec rest
+Vous pouvez récupérer n'importe quel nombre d'éléments d'un objet et obtenir *un objet* des éléments restants en utilisant la déstructuration d'objet avec rest.
 
 ```ts
 var {w, x, ...remaining} = {w: 1, x: 2, y: 3, z: 4};
 console.log(w, x, remaining); // 1, 2, {y:3,z:4}
 ```
-A common use case is also to ignore certain properties. For example:
+Un cas d'utilisation courant consiste également à ignorer certaines propriétés. Par example :
+
 ```ts
-// Example function
+// Exemple de fonction
 function goto(point2D: {x: number, y: number}) {
-  // Imagine some code that might break
-  // if you pass in an object
-  // with more items than desired
+  // Imaginez un code qui pourrait casser
+  // si vous passez dans un objet
+  // plus d'articles que désiré
 }
-// Some point you get from somewhere
+// Un point que vous obtenez de quelque part
 const point3D = {x: 1, y: 2, z: 3};
-/** A nifty use of rest to remove extra properties */
+/** Une utilisation astucieuse du rest pour supprimer des propriétés supplémentaires */
 const { z, ...point2D } = point3D;
 goto(point2D);
 ```
