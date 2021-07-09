@@ -75,40 +75,41 @@ const { z, ...point2D } = point3D;
 goto(point2D);
 ```
 
-#### Array Destructuring
-A common programming question: "How to swap two variables without using a third one?". The TypeScript solution:
+#### Déstructuration de tableau
+Une question de programmation courante : "Comment permuter deux variables sans en utiliser une troisième ?". La solution TypeScript :
 
 ```ts
 var x = 1, y = 2;
 [x, y] = [y, x];
 console.log(x, y); // 2,1
 ```
-Note that array destructuring is effectively the compiler doing the `[0], [1], ...` and so on for you. There is no guarantee that these values will exist.
+Notez que la déstructuration des tableaux est en fait le compilateur qui effectue le `[0], [1], ...` et ainsi de suite pour vous. Il n'y a aucune garantie que ces valeurs existeront.
 
-#### Array Destructuring with rest
-You can pick up any number of elements from an array and get *an array* of the remaining elements using array destructuring with rest.
+#### Array Destructuration avec rest
+Vous pouvez récupérer n'importe quel nombre d'éléments d'un tableau et obtenir *un tableau* des éléments restants en utilisant la déstructuration de tableau avec rest.
 
 ```ts
 var [x, y, ...remaining] = [1, 2, 3, 4];
 console.log(x, y, remaining); // 1, 2, [3,4]
 ```
 
-#### Array Destructuring with ignores
-You can ignore any index by simply leaving its location empty i.e. `, ,` in the left hand side of the assignment. For example:
+#### Déstructuration de tableau avec ignores
+Vous pouvez ignorer n'importe quel index en laissant simplement son emplacement vide, c'est-à-dire `, ,` dans la partie gauche de l'affectation. Par example :
+
 ```ts
 var [x, , ...remaining] = [1, 2, 3, 4];
 console.log(x, remaining); // 1, [3,4]
 ```
 
-#### JS Generation
-The JavaScript generation for non ES6 targets simply involves creating temporary variables, just like you would have to do yourself without native language support for destructuring e.g.
+#### Génération JS
+La génération JavaScript pour les cibles non ES6 implique simplement de créer des variables temporaires, tout comme vous auriez à le faire vous-même sans la prise en charge du langage natif pour la déstructuration, par exemple :
 
 ```ts
 var x = 1, y = 2;
 [x, y] = [y, x];
 console.log(x, y); // 2,1
 
-// becomes //
+// devient //
 
 var x = 1, y = 2;
 _a = [y,x], x = _a[0], y = _a[1];
@@ -116,5 +117,5 @@ console.log(x, y);
 var _a;
 ```
 
-#### Summary
-Destructuring can make your code more readable and maintainable by reducing the line count and making the intent clear. Array destructuring can allow you to use arrays as though they were tuples.
+#### Résumé
+La déstructuration peut rendre votre code plus lisible et maintenable en réduisant le nombre de lignes et en clarifiant l'intention. La déstructuration des tableaux peut vous permettre d'utiliser des tableaux comme s'ils étaient des tuples.
